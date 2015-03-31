@@ -27,9 +27,45 @@ $(document).ready(function(){
     var dancer = new dancerMakerFunction(
       $("body").height() * Math.random(),
       $("body").width() * Math.random(),
-      Math.random() * 2000
+      50
     );
+    dancers.push(dancer);
     $('body').append(dancer.$node);
   });
+$(".makeLine").on('click',function(event){
+  for(var i=0;i<dancers.length;i++){
+    dancers[i].setPosition(($("body").height()/2));
+  }
+});
+
+$(".grow").on('click',function(event){
+  // bigger = true;
+  for(var i=0;i<dancers.length;i++){
+    if (dancers[i].$node.css.size !== "BIG"){
+      dancers[i].$node.css({'size': "BIG", transform: 'scale(1.5,1.5)'});
+    }
+    else{
+      dancers[i].$node.css({'size': "SMALL", transform: 'scale(0.66667,0.66667)'});
+    }
+  }
+  // bigger = false;
+});
+var temp=function(event){
+   for(var i=0;i<dancers.length;i++){
+    console.log(dancers[i] instanceof makeCatDancer);
+    if(dancers[i] instanceof makeCatDancer){
+      dancers[i].left += 2;
+      var topPosition = dancers[i].top + (0.3*Math.sin(new Date().getTime()/1000)*(($("body").height())));
+      if (topPosition > $("body").height() ||topPosition < 200) {
+        topPosition = dancers[i].top;
+      }
+    // var leftPosition = Math.cos(new Date().getTime()/1000)*($("body").width()/5);
+      dancers[i].setPosition(topPosition,dancers[i].left);
+    }
+    // setTimeout('')
+  }
+};
+
+$('.bounce').on('click',function(){return setInterval(temp,200);});
 });
 
