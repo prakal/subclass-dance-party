@@ -41,7 +41,7 @@ makeDancer.prototype.step = function(){
   // it just schedules the next step
   //console.log('time between',this.timeBetweenSteps);
 
-  var test=this.step.bind(this);
+  var test = this.step.bind(this);
   //console.log('test',test);
   setTimeout(test, this.timeBetweenSteps);
   //this.step();
