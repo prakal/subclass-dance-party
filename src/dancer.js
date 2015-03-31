@@ -32,13 +32,18 @@ var makeDancer = function(top, left, timeBetweenSteps){
   // this one sets the position to some random default point within the body
   this.setPosition(this.top, this.left);
 
+  console.log('dancer arguments',arguments);
   // return dancer;
 };
 
 makeDancer.prototype.step = function(){
   // the basic dancer doesn't do anything interesting at all on each step,
   // it just schedules the next step
-  setTimeout(this.step, this.timeBetweenSteps);
+  //console.log('time between',this.timeBetweenSteps);
+
+  var test=this.step.bind(this);
+  //console.log('test',test);
+  setTimeout(test, this.timeBetweenSteps);
   //this.step();
 };
 
@@ -47,8 +52,8 @@ makeDancer.prototype.setPosition = function(top,left){
   // where it belongs on the page. See http://api.jquery.com/css/
   //
   var styleSettings = {
-    top: this.top,
-    left: this.left
+    top: top,
+    left: left
   };
   this.$node.css(styleSettings);
 };
