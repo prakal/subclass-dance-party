@@ -1,26 +1,27 @@
-var makeCatDancer = function(top, left, timeBetweenSteps){
+var Path = function(top, left, timeBetweenSteps){
   //var blinkyDancer = makeDancer(top, left, timeBetweenSteps);
 
   // we plan to overwrite the step function below, but we still want the superclass step behavior to work,
   // so we must keep a copy of the old version of this function
+
   makeDancer.call(this,top,left,timeBetweenSteps);
-  // this.$node = $('<span class="dancer"><img src = "https://s-media-cache-ak0.pinimg.com/originals/5d/93/c0/5d93c04122701e89f2d839d0e80e5a71.jpg"/> </span>');
-  this.$node = $('<span class="dancer"><img src = "http://media.giphy.com/media/KoUU7xo4SiYpO/giphy.gif"/> </span>');
+   this.$node = $('<span class="dancer"><img src = "https://s-media-cache-ak0.pinimg.com/originals/5d/93/c0/5d93c04122701e89f2d839d0e80e5a71.jpg"/> </span>');
+  //this.$node = $('<span class="dancer"><img src = "http://vignette2.wikia.nocookie.net/fantendo/images/d/db/Fireball_NSMB.png/revision/latest?cb=20121126001712"/> </span>');
   this.setPosition(top,left);
+  console.log(this.top);
   // this.step();
   // this.top = top;
   // this.left = left;
   // this.timeBetweenSteps = timeBetweenSteps;
-  console.log('cat dancer arguments',arguments);
 
 
   //return blinkyDancer;
 };
 
-makeCatDancer.prototype = Object.create(makeDancer.prototype);
-makeCatDancer.prototype.constructor = makeCatDancer;
+Path.prototype = Object.create(makeDancer.prototype);
+Path.prototype.constructor = Path;
 
-makeCatDancer.prototype.step = function(){
+Path.prototype.step = function(){
     // call the old version of step at the beginning of any call to this new version of step
     // this.step();
     // toggle() is a jQuery method to show/hide the <span> tag.

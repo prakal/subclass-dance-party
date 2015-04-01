@@ -6,7 +6,9 @@ var makeDancer = function(top, left, timeBetweenSteps){
 
   // var dancer = {};
   // use jQuery to create an HTML <span> tag
-  this.$node = $('<span class="dancer"><img src = "http://media.tumblr.com/tumblr_m8y2dc75wk1r7nv07o1_400.gif"/> </span>');
+
+  // this.$node = $('<span class="dancer"><img src = "http://media.tumblr.com/tumblr_m8y2dc75wk1r7nv07o1_400.gif"/> </span>');
+  this.$node = $('<span class="dancer"><img src = "http://media.giphy.com/media/KoUU7xo4SiYpO/giphy.gif"/> </span>');
 
   // dancer.step = function(){
   //   // the basic dancer doesn't do anything interesting at all on each step,
@@ -50,7 +52,7 @@ makeDancer.prototype.setPosition = function(top,left){
   // Use css top and left properties to position our <span> tag
   // where it belongs on the page. See http://api.jquery.com/css/
   //
-  console.log( 'left :'+left+'top :'+top);
+  // console.log( 'left :'+left+' top :'+top);
   var styleSettings = {
     top: top,
     left: left

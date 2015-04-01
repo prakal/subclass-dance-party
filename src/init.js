@@ -25,9 +25,9 @@ $(document).ready(function(){
     // make a dancer with a random position
 
     var dancer = new dancerMakerFunction(
-      $("body").height() * Math.random(),
-      $("body").width() * Math.random(),
-      50
+      ($("body").height() -300 )* Math.random(),
+      ($("body").width() -300)* Math.random(),
+      5
     );
     dancers.push(dancer);
     $('body').append(dancer.$node);
@@ -59,19 +59,42 @@ $(".grow").on('click',function(event){
   }
 });
 //helper function for bouncing cat
+scale = 1;
+multiplier = 1;
+var flag=true;
+var top_init, left_init;
 var temp=function(event){
    for(var i=0;i<dancers.length;i++){
     //console.log('hello world',dancers[i] instanceof makeCatDancer);
 
     if(dancers[i] instanceof makeCatDancer){
-      dancers[i].left += 2;
-      var topPosition = dancers[i].top + (0.3*Math.sin(new Date().getTime()/1000)*(($("body").height())));
-      if (topPosition > $("body").height() ||topPosition < 200) {
-        topPosition = dancers[i].top;
-        console.log('inside cat');
+      if(flag){
+        top_init=dancers[i].top;
+        left_init=dancers[i].left;
+        console.log('top init',top_init);
+        flag=false;
+      }
+      // dancers[i].left += 2;
+      scale *= multiplier;
+      var transformed = "scale("+scale+","+scale+")";
+
+      dancers[i].$node.css({transform: transformed});
+      var topPosition = dancers[i].top + (0.1*Math.sin(new Date().getTime()/1000)*(($("body").height())));
+      var leftPosition = dancers[i].left + (0.1*Math.cos(new Date().getTime()/1000)*(($("body").height())));
+      // if (topPosition > $("body").height() ||topPosition < 100) {
+      //   // topPosition = dancers[i].top;
+      //   console.log('inside cat');
+      // }
+      if ((topPosition > (top_init+200)) ||(scale > 1.25)){
+        // console.log('decreaased');
+        multiplier = 0.95;
+      }
+      if ((topPosition< (top_init-200)) || (scale < 0.8)){
+        // console.log('increeased');
+        multiplier = 1.05;
       }
     // var leftPosition = Math.cos(new Date().getTime()/1000)*($("body").width()/5);
-      dancers[i].setPosition(topPosition,dancers[i].left);
+      dancers[i].setPosition(topPosition,leftPosition);
     }
     // setTimeout('')
   }
@@ -80,16 +103,30 @@ var temp=function(event){
 
 $('.bounce').on('click',function(){return setInterval(temp,200);});
 
-});
+$('.path').on('click',function(){
+  //pick two random dancers
+  var dancer_1=Math.random()*dancers.length;
+  var dancer_2=Math.random()*dancers.length;
 
-$( "#clickme" ).click(function() {
-  $( "#book" ).animate({
-    opacity: 0.25,
-    left: "+=50",
-    height: "toggle"
-  }, 5000, function() {
+  // get their positions
+  var top_1=dancers[dancer_1].top;
+  var top_2=dancers[dancer_2].top;
+  var left_1=dancers[dancer_1].left;
+  var left_2=dancers[dancer_2].left;
+
+  $( "#fireball" ).animate({
+    left: "+=50"
+  }, 1000, function() {
     // Animation complete.
   });
+
+
 });
+
+
+
+});
+
+
 
 
