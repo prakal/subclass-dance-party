@@ -31,6 +31,13 @@ $(document).ready(function(){
     );
     dancers.push(dancer);
     $('body').append(dancer.$node);
+    if(dancers.length===1){
+      $(".dancer").addClass("first");
+      console.log('in here');
+    }
+    $(".first").on('click',function(event){
+      console.log('works');
+    });
   });
 $(".makeLine").on('click',function(event){
   for(var i=0;i<dancers.length;i++){
@@ -38,26 +45,30 @@ $(".makeLine").on('click',function(event){
   }
 });
 
+  bigger = true;
 $(".grow").on('click',function(event){
-  // bigger = true;
   for(var i=0;i<dancers.length;i++){
-    if (dancers[i].$node.css.size !== "BIG"){
-      dancers[i].$node.css({'size': "BIG", transform: 'scale(1.5,1.5)'});
+    if (bigger === true){
+      dancers[i].$node.css({transform: 'scale(1.5,1.5)'});
+      bigger = false;
     }
     else{
-      dancers[i].$node.css({'size': "SMALL", transform: 'scale(0.66667,0.66667)'});
+      dancers[i].$node.css({transform: 'scale(0.66667,0.66667)'});
+      bigger = true;
     }
   }
-  // bigger = false;
 });
+//helper function for bouncing cat
 var temp=function(event){
    for(var i=0;i<dancers.length;i++){
-    console.log(dancers[i] instanceof makeCatDancer);
+    //console.log('hello world',dancers[i] instanceof makeCatDancer);
+
     if(dancers[i] instanceof makeCatDancer){
       dancers[i].left += 2;
       var topPosition = dancers[i].top + (0.3*Math.sin(new Date().getTime()/1000)*(($("body").height())));
       if (topPosition > $("body").height() ||topPosition < 200) {
         topPosition = dancers[i].top;
+        console.log('inside cat');
       }
     // var leftPosition = Math.cos(new Date().getTime()/1000)*($("body").width()/5);
       dancers[i].setPosition(topPosition,dancers[i].left);
@@ -66,6 +77,19 @@ var temp=function(event){
   }
 };
 
+
 $('.bounce').on('click',function(){return setInterval(temp,200);});
+
 });
+
+$( "#clickme" ).click(function() {
+  $( "#book" ).animate({
+    opacity: 0.25,
+    left: "+=50",
+    height: "toggle"
+  }, 5000, function() {
+    // Animation complete.
+  });
+});
+
 
